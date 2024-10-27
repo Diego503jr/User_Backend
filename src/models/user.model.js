@@ -4,25 +4,32 @@ export default class UserModel {
   #correo = null;
   #clave = null;
 
+  constructor() {
+    this.#id = -1;
+    this.#nombre = null;
+    this.#correo = null;
+    this.#clave = null;
+  }
+
   //Getters
-  get id() {
+  getId() {
     return this.#id;
   }
 
-  get nombre() {
+  getNombre() {
     return this.#nombre;
   }
 
-  get correo() {
+  getCorreo() {
     return this.#correo;
   }
 
-  get clave() {
+  getClave() {
     return this.#clave;
   }
 
   //Setters
-  set id(idNew) {
+  setId(idNew) {
     if (typeof idNew === "number" && idNew > -1) {
       this.#id = idNew;
     } else {
@@ -30,7 +37,7 @@ export default class UserModel {
     }
   }
 
-  set nombre(nombreNew) {
+  setNombre(nombreNew) {
     if (typeof nombreNew === "string") {
       this.#nombre = nombreNew;
     } else {
@@ -38,11 +45,11 @@ export default class UserModel {
     }
   }
 
-  set correo(correoNew) {
+  setCorreo(correoNew) {
     this.#correo = correoNew;
   }
 
-  set clave(claveNew) {
+  setClave(claveNew) {
     this.#clave = claveNew;
   }
 }

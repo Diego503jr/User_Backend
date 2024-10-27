@@ -1,11 +1,16 @@
 import express from "express";
+import userRoutes from "./routes/user.routes.js";
 
+//Initialize app
 const app = express();
+const PORT = 3001;
 
-app.get("/", (req, res) => {
-  res.send("Hello from home page");
-});
+//Settings
+app.set("port", PORT);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.listen(3001, () => {
-  console.log("Server running on port 3001");
-});
+//Routes
+app.use(userRoutes);
+
+export default app;

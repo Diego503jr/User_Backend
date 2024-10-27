@@ -1,18 +1,9 @@
-import express from "express";
-import { ReadUsers } from "./src/controllers/userControllers.js";
+import app from "./src/app.js";
 
-const app = express();
-const PORT = 3001;
-
-app.get("/user", async (req, res) => {
-  try {
-    const user = await ReadUsers();
-    res.json(user);
-  } catch (err) {
-    res.status(500).send("Error to get users");
+app.listen(app.get("port"), (err) => {
+  if (err) {
+    console.log(`Something was wrong: ${err}`);
+  } else {
+    console.log(`Server running on: http://localhost:${app.get("port")}`);
   }
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
 });

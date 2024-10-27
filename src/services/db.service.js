@@ -1,5 +1,5 @@
 import mssql from "mssql";
-import { connDb } from "../../db/connect.js";
+import { connDb } from "../database/connect.js";
 
 export default class Database {
   constructor() {
@@ -14,19 +14,26 @@ export default class Database {
   }
 
   //Methods execution
-  async executeProcedure(procedureName, inputs = []) {
+  async executeProcedure(procedureName, params = {}) {
     try {
       await this.openConnection();
       const request = new mssql.Request();
 
-      //Add parameters if there are
-      inputs.forEach((input) => {
-        request.input(input.name, input.type, input.value);
-      });
+      if (params) {
+        //Add parameters if there are
+        for (const key in params) {
+          const { type, value } = params[key];
+          request.input(key, type, value);
+        }
+      }
 
       //Execute query
       const result = await request.execute(procedureName);
-      return result.recordset;
+
+      //Return results
+      console.log(result);
+
+      return result;
     } catch (err) {
       console.log(`Error executing procedure ${procedureName}`, err.message);
     }
