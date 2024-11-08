@@ -19,23 +19,20 @@ export default class Database {
       await this.openConnection();
       const request = new mssql.Request();
 
-      if (params) {
-        //Add parameters if there are
-        for (const key in params) {
-          const { type, value } = params[key];
-          request.input(key, type, value);
-        }
+      //Add parameters if there are
+      for (const key in params) {
+        const { type, value } = params[key];
+        request.input(key, type, value);
       }
 
       //Execute query
       const result = await request.execute(procedureName);
 
       //Return results
-      console.log(result);
-
       return result;
     } catch (err) {
       console.log(`Error executing procedure ${procedureName}`, err.message);
+      throw err;
     }
   }
 

@@ -17,7 +17,6 @@ const settingConnetion = {
 export const connDb = async () => {
   try {
     await mssql.connect(settingConnetion);
-    console.log("DB running well");
   } catch (err) {
     console.log("Can't connect to DB", err.message);
   }
